@@ -5,17 +5,23 @@ all: buildroot
 EXTERNALS="../br2qemu ../br2directfb2 ../br2games"
 DEFCONFIG=../buildroot_defconfig
 
+BR2OPTS=BR2_EXTERNAL=$(EXTERNALS) BR2_DEFCONFIG=$(DEFCONFIG)
+
 bootstrap:
-	$(MAKE) -C buildroot BR2_EXTERNAL=$(EXTERNALS) BR2_DEFCONFIG=$(DEFCONFIG) olddefconfig
+	cp buildroot_defconfig buildroot/.config
+	$(MAKE) -C buildroot $(BR2OPTS) olddefconfig
 
 buildroot:
-	$(MAKE) -C buildroot BR2_EXTERNAL=$(EXTERNALS) BR2_DEFCONFIG=$(DEFCONFIG)
+	$(MAKE) -C buildroot $(BR2OPTS)
+
+buildroot-download:
+	$(MAKE) -C buildroot $(BR2OPTS) source
 
 buildroot-menuconfig:
-	$(MAKE) -C buildroot BR2_EXTERNAL=$(EXTERNALS) BR2_DEFCONFIG=$(DEFCONFIG) menuconfig
+	$(MAKE) -C buildroot $(BR2OPTS) menuconfig
 
 buildroot-savedefconfig:
-	$(MAKE) -C buildroot BR2_EXTERNAL=$(EXTERNALS) BR2_DEFCONFIG=$(DEFCONFIG) savedefconfig
+	$(MAKE) -C buildroot $(BR2OPTS) savedefconfig
 
 QEMU_BIN=-./buildroot/output/host/bin/qemu-system-x86_64
 run_x86-64:
