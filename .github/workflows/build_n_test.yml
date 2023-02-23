@@ -18,7 +18,7 @@ jobs:
       with:
         path: |
           buildroot/dl
-        key: ${{ runner.os }}-xxx
+        key: linuxgfx-buildntest
 
     - name: Bootstrap
       run: "make bootstrap"
