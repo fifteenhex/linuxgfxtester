@@ -1,0 +1,35 @@
+name: Build N Test
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Restore cache
+      id: cache-restore
+      uses: actions/cache/restore@v3
+      with:
+        path: |
+          buildroot/dl
+        key: ${{ runner.os }}-xxx
+
+    - name: Bootstrap
+      run: "make bootstrap"
+
+    - name: Download
+      run: "make buildroot"
+
+    - name: Save Cache
+      id: cache-save
+      uses: actions/cache/save@v3
+      with:
+        path: |
+          buildroot/dl
+        key: ${{ steps.cache-restore.outputs.cache-primary-key }}
