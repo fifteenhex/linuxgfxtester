@@ -26,6 +26,9 @@ jobs:
     - name: Download
       run: "make buildroot-download"
 
+    - name: Build
+      run: "make buildroot"
+
     - name: Save Cache
       id: cache-save
       uses: actions/cache/save@v3
