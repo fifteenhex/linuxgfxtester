@@ -24,7 +24,7 @@ jobs:
       run: "make bootstrap"
 
     - name: Download
-      run: "make buildroot"
+      run: "make buildroot-download"
 
     - name: Save Cache
       id: cache-save
