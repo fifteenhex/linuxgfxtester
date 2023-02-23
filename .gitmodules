@@ -7,3 +7,6 @@
 [submodule "br2qemu"]
 	path = br2qemu
 	url = https://github.com/fifteenhex/br2qemu.git
+[submodule "br2games"]
+	path = br2games
+	url = https://github.com/fifteenhex/br2games.git
