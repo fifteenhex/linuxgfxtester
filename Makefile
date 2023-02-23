@@ -29,4 +29,8 @@ run_x86-64:
 		-machine q35 \
 		-m 1G \
 		-vga virtio \
-		-kernel ./buildroot/output/images/bzImage
+		-device virtio-serial,max_ports=1 \
+		-chardev socket,id=testqemu_console,path=./testqemu_console,server=yes,wait=no \
+		-device virtconsole,chardev=testqemu_console,name=test_console \
+		-kernel ./buildroot/output/images/bzImage \
+		-append "console=hvc0 quiet"
