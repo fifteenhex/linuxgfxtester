@@ -34,3 +34,15 @@ run_x86-64:
 		-device virtconsole,chardev=testqemu_console,name=test_console \
 		-kernel ./buildroot/output/images/bzImage \
 		-append "console=hvc0 quiet"
+
+vnc2mpg.c:
+	wget "https://raw.githubusercontent.com/LibVNC/libvncserver/master/examples/client/vnc2mpg.c"
+
+vnc2mpg: vnc2mpg.c
+	gcc -o $@ $< `PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/ pkg-config --cflags --libs libavcodec libavutil libavformat libswscale libvncclient`
+
+recordvnc: vnc2mpg
+	./vnc2mpg -o vncrecording.mp4
+
+test-chocolatedoom:
+	$(MAKE) run_x86-64 &
